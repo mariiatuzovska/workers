@@ -33,9 +33,9 @@ func NewService(size, maxProc int, w io.Writer) Service {
 		size = 1
 	}
 
-	maxProcRuntime := runtime.GOMAXPROCS(0)
-	if maxProc < 1 || maxProc >= maxProcRuntime {
-		maxProc = maxProcRuntime - 1
+	maxProcRuntime := runtime.GOMAXPROCS(maxProc)
+	if maxProc <= 0 {
+		maxProc = maxProcRuntime
 	}
 
 	storage := make([]models.Messages, maxProc)
